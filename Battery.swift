@@ -2,6 +2,7 @@ struct Energy {
   Double duration = 0 // in terms of hours
   Double current = 0  // in terms of mA
   Double voltage = 0 // in terms of V  (electromotive force)
+  var modified = false
 }
 
 
@@ -16,7 +17,7 @@ class Battery {
   var maximum_capacity = 0 //units are mAh
   var capacity = 0 //units are mAh
   var charger_efficiency = 0
-  var first_charge = true
+  var first_capacity_update = true
   var last_charge_timestamp = 0
 
 
@@ -36,7 +37,7 @@ class Battery {
   }
   
     func GetCapacity(timestamp: Int) -> Double {
-      if first_charge == true {
+      if first_capacity_update == true {
         return capacity
       }
       var charge_duration = (timestamp - last_charge_timestamp) / 3600.0 
@@ -78,11 +79,11 @@ class Battery {
          return false
        } 
        else {
-         if first_charge != true {
+         if first_capacity_update != true {
            var charge_duration = (timestamp - last_charge_timestamp) / 3600.0 
            capacity = capacity + charge_duration * current_charge_rate
          }
-         first_charge = false
+         first_capacity_update = false
          last_charge_timestamp = timestamp
          current_charge_rate = result.current / maximum_capacity
 
