@@ -12,10 +12,14 @@ import Charts
 extension DashboardViewController: ChartViewDelegate {
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-        print("CHART SELECTED: \(entry)....")
+        print("Chart Selected: \(highlight.stackIndex)")
         
-        //Segue to detail view
+        if highlight.stackIndex != -1 {
+            selectedIndex = highlight.stackIndex
 
+            performSegue(withIdentifier: "dashToDetail", sender: self)
+            
+        }
     }
     
 }

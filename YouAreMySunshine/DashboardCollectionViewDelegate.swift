@@ -66,10 +66,17 @@ extension DashboardViewController: UICollectionViewDelegate {
         
         //change the free space to = what it was before + the cost of the object being deselected
         activeApplianceList[activeApplianceList.endIndex - 1].energyUsage += (newObject?.energyUsage)!
-        
         //reload the graph.
         let energyValue = activeApplianceList.map( { $0.energyUsage })
         updateGraph(activeAppliances: energyValue)
+        
+        
+        //guard var total = totalEnergyUsed else { return }
+        //total -= (newObject?.energyUsage)!
+        totalEnergyUsed -= (newObject?.energyUsage)!
+        //totalEnergyUsed = total
+        averageNumberLabel.text = "Total energy: \(Int(totalEnergyUsed)) / \(Int(totalWatNumber))"
+
         
     }
     
@@ -93,14 +100,22 @@ extension DashboardViewController: UICollectionViewDelegate {
         //if newValue >= 0 && newValue <= 100 {
             activeApplianceList.insert(applianceList[indexPath.row], at: 0)
             activeApplianceList[0].energyUsage = itemValue // set the item being selected's value by watt * time
+            activeApplianceList[0].timeUsed = duration
             activeApplianceList[activeApplianceList.endIndex - 1].energyUsage -= itemValue // subtract new amount from the free space
+
             //print("LIST MASTER : \(activeApplianceList.map( { $0.energyUsage }))")
             //print("POST: \(activeApplianceList[0].energyUsage)     : \(activeApplianceList[1].energyUsage)")
             
             // reload the graph
             let newEnergyValue = activeApplianceList.map( { $0.energyUsage })
             updateGraph(activeAppliances: newEnergyValue)
-            
+        
+        
+        //guard var total = totalEnergyUsed else { print("prob adding");return }
+        totalEnergyUsed += itemValue//(newObject?.energyUsage)!
+        //total += itemValue
+        //totalEnergyUsed = total
+        averageNumberLabel.text = "Total energy: \(Int(totalEnergyUsed)) / \(Int(totalWatNumber))"
         //} else {
             // Invalid.
         //    print("Unable to satisfy constraints")
