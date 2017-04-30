@@ -25,6 +25,9 @@
 		D4BB3C7F1EB4BFB80026EED0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D4BB3C7D1EB4BFB80026EED0 /* LaunchScreen.storyboard */; };
 		D4BB3C8A1EB4BFB80026EED0 /* YouAreMySunshineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BB3C891EB4BFB80026EED0 /* YouAreMySunshineTests.swift */; };
 		D4BB3C951EB4BFB80026EED0 /* YouAreMySunshineUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4BB3C941EB4BFB80026EED0 /* YouAreMySunshineUITests.swift */; };
+		D4E542831EB62937009ECF4E /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E542821EB62937009ECF4E /* Network.swift */; };
+		D4E542861EB62C43009ECF4E /* Calculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E542851EB62C43009ECF4E /* Calculations.swift */; };
+		D4E542891EB63B52009ECF4E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4E542881EB63B52009ECF4E /* DetailViewController.swift */; };
 		D893F92B1B398B03D2C9FC20 /* Pods_YouAreMySunshineUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D73C7F1DD9506C61CBE89E7 /* Pods_YouAreMySunshineUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +77,9 @@
 		D4BB3C941EB4BFB80026EED0 /* YouAreMySunshineUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouAreMySunshineUITests.swift; sourceTree = "<group>"; };
 		D4BB3C961EB4BFB80026EED0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D4C06968D08D3FE0D12263C4 /* Pods-YouAreMySunshine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouAreMySunshine.release.xcconfig"; path = "Pods/Target Support Files/Pods-YouAreMySunshine/Pods-YouAreMySunshine.release.xcconfig"; sourceTree = "<group>"; };
+		D4E542821EB62937009ECF4E /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		D4E542851EB62C43009ECF4E /* Calculations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Calculations.swift; sourceTree = "<group>"; };
+		D4E542881EB63B52009ECF4E /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		DFCD359F29A24CAC80FD1250 /* Pods-YouAreMySunshine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YouAreMySunshine.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YouAreMySunshine/Pods-YouAreMySunshine.debug.xcconfig"; sourceTree = "<group>"; };
 		EAFC2D84F0991DCB6B9C6CB6 /* Pods_YouAreMySunshine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YouAreMySunshine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD7028C9209AE92F8B8C4A71 /* Pods_YouAreMySunshineTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YouAreMySunshineTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				D4B7781F1EB51FE400E71869 /* Dashboard */,
+				D4E542871EB63B38009ECF4E /* Detail */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -163,6 +170,7 @@
 			children = (
 				D4B778181EB4E89600E71869 /* DataModel.swift */,
 				D41E03941EB55700007B385A /* Singleton.swift */,
+				D4E542821EB62937009ECF4E /* Network.swift */,
 			);
 			name = "Data Model";
 			sourceTree = "<group>";
@@ -195,6 +203,7 @@
 				D4BB3C7B1EB4BFB80026EED0 /* Assets.xcassets */,
 				D4BB3C711EB4BFB80026EED0 /* AppDelegate.swift */,
 				D4B778201EB51FFC00E71869 /* Data Model */,
+				D4E542841EB62C33009ECF4E /* Calculations */,
 				D4B7781E1EB51FD500E71869 /* Views */,
 				D4B7781D1EB51FCE00E71869 /* View Controllers */,
 				D4B7781C1EB51FC600E71869 /* Extensions */,
@@ -220,6 +229,22 @@
 				D4BB3C961EB4BFB80026EED0 /* Info.plist */,
 			);
 			path = YouAreMySunshineUITests;
+			sourceTree = "<group>";
+		};
+		D4E542841EB62C33009ECF4E /* Calculations */ = {
+			isa = PBXGroup;
+			children = (
+				D4E542851EB62C43009ECF4E /* Calculations.swift */,
+			);
+			name = Calculations;
+			sourceTree = "<group>";
+		};
+		D4E542871EB63B38009ECF4E /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				D4E542881EB63B52009ECF4E /* DetailViewController.swift */,
+			);
+			name = Detail;
 			sourceTree = "<group>";
 		};
 		EA04D733B4FA27299C57AA7A /* Frameworks */ = {
@@ -518,15 +543,18 @@
 			files = (
 				D4B778191EB4E89600E71869 /* DataModel.swift in Sources */,
 				D41E03931EB54DA6007B385A /* TimeViewController.swift in Sources */,
+				D4E542831EB62937009ECF4E /* Network.swift in Sources */,
 				D4B778171EB4D44B00E71869 /* DashboardCollectionViewDataSource.swift in Sources */,
 				D4B7781B1EB51F9D00E71869 /* UIImage+Recolor.swift in Sources */,
 				D41E03911EB533FE007B385A /* DashboardChartDelegate.swift in Sources */,
 				D4B778131EB4D3B500E71869 /* ApplianceCollectionViewCell.swift in Sources */,
 				D41E03951EB55700007B385A /* Singleton.swift in Sources */,
+				D4E542861EB62C43009ECF4E /* Calculations.swift in Sources */,
 				D4BB3C741EB4BFB80026EED0 /* DashboardViewController.swift in Sources */,
 				D4BB3C7A1EB4BFB80026EED0 /* YouAreMySunshine.xcdatamodeld in Sources */,
 				D4B778151EB4D43F00E71869 /* DashboardCollectionViewDelegate.swift in Sources */,
 				D4BB3C721EB4BFB80026EED0 /* AppDelegate.swift in Sources */,
+				D4E542891EB63B52009ECF4E /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

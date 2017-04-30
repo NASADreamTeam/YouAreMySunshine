@@ -11,26 +11,14 @@ import Charts
 
 extension DashboardViewController: ChartViewDelegate {
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
-     //   chartView.getHighlightByTouchPoint(<#T##pt: CGPoint##CGPoint#>)
-        print("CHART SELECTED: \(entry)....")
-        print("entry.data: \(entry.data)")
-        print("entry.description: \(entry.description.description)")
-      //  print("entry.xIndex: \(entry.xIndex)")
-        print("---")
-        print("chartView.chartDescription: \(chartView.chartDescription)")
-        print("chartView.centerOffsets: \(chartView.centerOffsets)")
-        print("chartView.contentRect: \(chartView.contentRect)")
+        print("Chart Selected: \(highlight.stackIndex)")
         
-        print("highlight \(highlight.dataIndex)")
-        print("highlight \(highlight.dataSetIndex)")
-        print("highlight \(highlight.stackIndex)")
+        if highlight.stackIndex != -1 {
+            selectedIndex = highlight.stackIndex
 
-        //print("entry.: \(entry.value(forKey: <#T##String#>))")
-        //activeApplianceList makes up graph
-        // get index of item that we selected.
-        
-        //Segue to detail view
-
+            performSegue(withIdentifier: "dashToDetail", sender: self)
+            
+        }
     }
     
 }

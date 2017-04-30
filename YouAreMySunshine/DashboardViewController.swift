@@ -11,15 +11,10 @@ import Charts
 import CoreLocation
 
 class DashboardViewController: UIViewController, CLLocationManagerDelegate {
+    
     @IBOutlet weak var topView: UIView!
-    @IBOutlet weak var progressView: UIProgressView! {
-        didSet {
-            progressView.alpha = 0.0
-        }
-    }
     @IBOutlet weak var highNumberLabel: UILabel!
     @IBOutlet weak var averageNumberLabel: UILabel!
-    @IBOutlet weak var lowNumberLabel: UILabel!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
@@ -37,7 +32,7 @@ class DashboardViewController: UIViewController, CLLocationManagerDelegate {
             barChart.drawGridBackgroundEnabled = false
             barChart.rightAxis.drawGridLinesEnabled = false
             barChart.rightAxis.drawLimitLinesBehindDataEnabled = false
-            //barChart.rightAxis.drawLabelsEnabled = false
+            barChart.rightAxis.drawLabelsEnabled = false
             barChart.rightAxis.drawAxisLineEnabled = false
             barChart.rightAxis.drawZeroLineEnabled = false
             barChart.rightAxis.drawTopYLabelEntryEnabled = false
@@ -49,6 +44,8 @@ class DashboardViewController: UIViewController, CLLocationManagerDelegate {
             barChart.leftAxis.drawZeroLineEnabled = false
             barChart.leftAxis.drawTopYLabelEntryEnabled = false
             
+            //barChart.legend.
+            
             barChart.drawGridBackgroundEnabled = false
             barChart.doubleTapToZoomEnabled = false
             barChart.pinchZoomEnabled = false
@@ -58,42 +55,49 @@ class DashboardViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
 
-    var activeApplianceList = [Appliance(name: "Free", energy: 100, energyUsage: 100.0, color: UIColor.green, image: UIImage(named: "tv")!)]
+    var activeApplianceList = [Appliance(name: "Free", energy: 100, energyUsage: 100.0, timeUsed: Date(), color: UIColor.lightGray, image: UIImage(named: "tv")!)]
     
     let applianceList = [
-        Appliance(name: "Clothes Dryer", energy: 2790, energyUsage: 0.0, color: UIColor(red: 80/255, green: 40/255, blue: 18/255, alpha: 1.0), image: UIImage(named: "dryer")!),
-        Appliance(name: "Clothes Washer", energy: 255, energyUsage: 0.0, color: UIColor(red: 96/255, green: 54/255, blue: 24/255, alpha: 1.0), image: UIImage(named: "cwasher")!),
-        Appliance(name: "Coffee Maker", energy: 1000, energyUsage: 0.0, color: UIColor(red: 133/255, green: 87/255, blue: 35/255, alpha: 1.0), image: UIImage(named: "coffee")!),
-        Appliance(name: "Laptop", energy: 25, energyUsage: 0.0, color: UIColor(red: 137/255, green: 32/255, blue: 52/255, alpha: 1.0), image: UIImage(named: "laptop")!),
-        Appliance(name: "Dishwasher", energy: 330, energyUsage: 0.0, color: UIColor(red: 122/255, green: 26/255, blue: 87/255, alpha: 1.0), image: UIImage(named: "dwasher")!),
-        Appliance(name: "Microwave", energy: 1500, energyUsage: 0.0, color: UIColor(red: 111/255, green: 37/255, blue: 108/255, alpha: 1.0), image: UIImage(named: "microwave")!),
-        Appliance(name: "Power Tool", energy: 13, energyUsage: 0.0, color: UIColor(red: 0/255, green: 52/255, blue: 77/255, alpha: 1.0), image: UIImage(named: "powertool")!),
-        Appliance(name: "Fridge", energy: 225, energyUsage: 0.0, color: UIColor(red: 0/255, green: 48/255, blue: 102/255, alpha: 1.0), image: UIImage(named: "fridge")!),
-        Appliance(name: "Space Heater", energy: 1320, energyUsage: 0.0, color: UIColor(red: 87/255, green: 82/255, blue: 126/255, alpha: 1.0), image: UIImage(named: "heater")!),
-        Appliance(name: "TV", energy: 150, energyUsage: 0.0, color: UIColor(red: 0/255, green: 66/255, blue: 54/255, alpha: 1.0), image: UIImage(named: "tv")!),
-        Appliance(name: "Toaster", energy: 1100, energyUsage: 0.0, color: UIColor(red: 64/255, green: 70/255, blue: 22/255, alpha: 1.0), image: UIImage(named: "toaster")!),
-        Appliance(name: "Game Console", energy: 36, energyUsage: 0.0, color: UIColor(red: 159/255, green: 155/255, blue: 116/255, alpha: 1.0), image: UIImage(named: "game")!),
-        Appliance(name: "Water Heater", energy: 4500, energyUsage: 0.0, color: UIColor(red: 102/255, green: 141/255, blue: 60/255, alpha: 1.0), image: UIImage(named: "wheater")!),
-        Appliance(name: "Well Pump", energy: 725, energyUsage: 0.0, color: UIColor(red: 129/255, green: 108/255, blue: 91/255, alpha: 1.0), image: UIImage(named: "wpump")!),
+        Appliance(name: "Clothes Dryer", energy: 3000, energyUsage: 0.0, timeUsed: Date(), color: UIColor(red: 80/255, green: 40/255, blue: 18/255, alpha: 1.0), image: UIImage(named: "dryer")!),
+        Appliance(name: "Clothes Washer", energy: 500, energyUsage: 0.0, timeUsed: Date(), color: UIColor(red: 96/255, green: 54/255, blue: 24/255, alpha: 1.0), image: UIImage(named: "cwasher")!),
+        Appliance(name: "Coffee Maker", energy: 800, energyUsage: 0.0, timeUsed: Date(), color: UIColor(red: 133/255, green: 87/255, blue: 35/255, alpha: 1.0), image: UIImage(named: "coffee")!),
+        Appliance(name: "Laptop", energy: 60, energyUsage: 0.0, timeUsed: Date(), color: UIColor(red: 137/255, green: 32/255, blue: 52/255, alpha: 1.0), image: UIImage(named: "laptop")!),
+        Appliance(name: "Dishwasher", energy: 1800, energyUsage: 0.0, timeUsed: Date(), color: UIColor(red: 122/255, green: 26/255, blue: 87/255, alpha: 1.0), image: UIImage(named: "dwasher")!),
+        Appliance(name: "Microwave", energy: 1200, energyUsage: 0.0, timeUsed: Date(), color: UIColor(red: 111/255, green: 37/255, blue: 108/255, alpha: 1.0), image: UIImage(named: "microwave")!),
+        Appliance(name: "Central A/C", energy: 3500, energyUsage: 0.0, timeUsed: Date(), color: UIColor(red: 0/255, green: 52/255, blue: 77/255, alpha: 1.0), image: UIImage(named: "ac")!),
+        Appliance(name: "Fridge", energy: 180, energyUsage: 0.0, timeUsed: Date(), color: UIColor(red: 0/255, green: 48/255, blue: 102/255, alpha: 1.0), image: UIImage(named: "fridge")!),
+        Appliance(name: "Space Heater", energy: 1500, energyUsage: 0.0, timeUsed: Date(), color: UIColor(red: 87/255, green: 82/255, blue: 126/255, alpha: 1.0), image: UIImage(named: "heater")!),
+        Appliance(name: "50\" LCD TV", energy: 150, energyUsage: 0.0, timeUsed: Date(), color: UIColor(red: 0/255, green: 66/255, blue: 54/255, alpha: 1.0), image: UIImage(named: "tv")!),
+        Appliance(name: "Toaster", energy: 1200, energyUsage: 0.0, timeUsed: Date(), color: UIColor(red: 64/255, green: 70/255, blue: 22/255, alpha: 1.0), image: UIImage(named: "toaster")!),
+        Appliance(name: "Game Console", energy: 100, energyUsage: 0.0, timeUsed: Date(), color: UIColor(red: 159/255, green: 155/255, blue: 116/255, alpha: 1.0), image: UIImage(named: "game")!),
+        Appliance(name: "Hot Shower", energy: 4000, energyUsage: 0.0, timeUsed: Date(), color: UIColor(red: 102/255, green: 141/255, blue: 60/255, alpha: 1.0), image: UIImage(named: "wheater")!),
+        Appliance(name: "Dehumidifier", energy: 280, energyUsage: 0.0, timeUsed: Date(), color: UIColor(red: 129/255, green: 108/255, blue: 91/255, alpha: 1.0), image: UIImage(named: "dehum")!),
+        Appliance(name: "Stove Top", energy: 1500, energyUsage: 0.0, timeUsed: Date(), color: UIColor(red: 199/255, green: 108/255, blue: 191/255, alpha: 1.0), image: UIImage(named: "stovetop")!),
         ]
     
     let locationManager = CLLocationManager()
     
     var selectedUpperBound: Double!
     
+    var totalWatNumber = 0.0
+    
+    var selectedIndex: Int!
+    
+    var totalEnergyUsed = 0.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         highNumberLabel.alpha = 0.0
-        lowNumberLabel.alpha = 0.0
-        averageNumberLabel.alpha = 0.0
-
+        //saverageNumberLabel.alpha = 0.0
         let energyValue = activeApplianceList.map( { $0.energy })
         updateGraph(activeAppliances: energyValue)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.itemAddition), name: NSNotification.Name(rawValue: "addItem"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.addAppliance), name: NSNotification.Name(rawValue: "addAppliance"), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.itemDeselect), name: NSNotification.Name(rawValue: "cancelView"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.itemDeselect), name: NSNotification.Name(rawValue: "deselectView"), object: nil)
+        
+        print("TEST")
         
         // For use in foreground
         locationManager.requestWhenInUseAuthorization()
@@ -102,7 +106,22 @@ class DashboardViewController: UIViewController, CLLocationManagerDelegate {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
             locationManager.startUpdatingLocation()
+        } else {
+            let watts = NetworkHelper.fetchPredictedIrradiance(lat: 19.602378, long: -155.487192)
+            totalWatNumber = CalculationHelper.wattHours(wattHrM2: watts)
+            activeApplianceList[activeApplianceList.endIndex - 1].energyUsage = totalWatNumber
+            print("Free wattage: \(activeApplianceList[0].energyUsage)")
+            updateGraph(activeAppliances: activeApplianceList.map( { $0.energyUsage }))
+            averageNumberLabel.text = "Total energy: \(0) / \(Int(totalWatNumber))"
+
+            //alert prompt
+            let alert = UIAlertController(title: "Notice!", message: "We have noticed that your location services are disabled, for better accuracy please turn them on!", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
         }
+        
+        print("TOTAL WATT: \(totalWatNumber)")
         
     }
     
@@ -175,11 +194,31 @@ class DashboardViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        var userLocation:CLLocation = locations[0] as! CLLocation
+        let userLocation:CLLocation = locations[0]// as! CLLocation
         let long = userLocation.coordinate.longitude
         let lat = userLocation.coordinate.latitude
+        let watts = NetworkHelper.fetchPredictedIrradiance(lat: lat, long: long)
+        print("TEMP: \(watts)")
+        print("LAT: \(lat), LONG: \(long)")
+
+        totalWatNumber = CalculationHelper.wattHours(wattHrM2: watts)
+        activeApplianceList[activeApplianceList.endIndex - 1].energyUsage = totalWatNumber
+        averageNumberLabel.text = "Total energy: \(0) / \(Int(totalWatNumber))"
+
+        updateGraph(activeAppliances: activeApplianceList.map( { $0.energyUsage }))
+        print("Free Wattage: \(activeApplianceList[0].energyUsage)")
         
-        //print("LAT: \(lat), LONG: \(long)")
+        manager.stopUpdatingLocation()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "dashToDetail" {
+            let viewController = segue.destination as! DetailViewController
+            //let indexPath = self.tableView.indexPathForSelectedRow()
+            viewController.appliance = activeApplianceList[selectedIndex]
+            viewController.totalWatNumber = totalWatNumber
+            
+        }
     }
 
 

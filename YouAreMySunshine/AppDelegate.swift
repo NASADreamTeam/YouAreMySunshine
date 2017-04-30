@@ -18,6 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        UserDefaults.standard.set(0.08, forKey: "efficiency")
+        UserDefaults.standard.set(1.635481, forKey: "panelArea")
+        UserDefaults.standard.set(30.0, forKey: "panelNumber")
+        
         return true
     }
 
