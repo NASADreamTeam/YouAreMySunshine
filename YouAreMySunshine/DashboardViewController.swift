@@ -12,14 +12,9 @@ import CoreLocation
 
 class DashboardViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var topView: UIView!
-    @IBOutlet weak var progressView: UIProgressView! {
-        didSet {
-            progressView.alpha = 0.0
-        }
-    }
+
     @IBOutlet weak var highNumberLabel: UILabel!
     @IBOutlet weak var averageNumberLabel: UILabel!
-    @IBOutlet weak var lowNumberLabel: UILabel!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
@@ -58,7 +53,7 @@ class DashboardViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
 
-    var activeApplianceList = [Appliance(name: "Free", energy: 100, energyUsage: 100.0, color: UIColor.green, image: UIImage(named: "tv")!)]
+    var activeApplianceList = [Appliance(name: "Free", energy: 100, energyUsage: 100.0, color: UIColor.lightGray, image: UIImage(named: "tv")!)]
     
     let applianceList = [
         Appliance(name: "Clothes Dryer", energy: 2790, energyUsage: 0.0, color: UIColor(red: 80/255, green: 40/255, blue: 18/255, alpha: 1.0), image: UIImage(named: "dryer")!),
@@ -85,15 +80,14 @@ class DashboardViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
 
         highNumberLabel.alpha = 0.0
-        lowNumberLabel.alpha = 0.0
         averageNumberLabel.alpha = 0.0
 
         let energyValue = activeApplianceList.map( { $0.energy })
         updateGraph(activeAppliances: energyValue)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.itemAddition), name: NSNotification.Name(rawValue: "addItem"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.addAppliance), name: NSNotification.Name(rawValue: "addAppliance"), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.itemDeselect), name: NSNotification.Name(rawValue: "cancelView"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.itemDeselect), name: NSNotification.Name(rawValue: "deselectView"), object: nil)
         
         // For use in foreground
         locationManager.requestWhenInUseAuthorization()
@@ -163,6 +157,7 @@ class DashboardViewController: UIViewController, CLLocationManagerDelegate {
         let lat = userLocation.coordinate.latitude
         
         print("LAT: \(lat), LONG: \(long)")
+        manager.stopUpdatingLocation()
     }
 
 

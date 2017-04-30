@@ -20,5 +20,4 @@ class ShareData {
     var selectedIndex: IndexPath!
     var duration: Date!
 
-
 }

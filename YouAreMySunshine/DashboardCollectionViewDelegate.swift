@@ -12,24 +12,18 @@ import Charts
 extension DashboardViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        // get the free value from active list which is always present
-        let freeValue = activeApplianceList.filter { $0.name == "Free" }.first?.energy
+
+        let freeValue = activeApplianceList.filter { $0.name == "Free" }.first?.energyUsage
         
         // get the initial value of the item selected
         let itemValue = applianceList[indexPath.row].energy
         
         // multiply initial value by time to get the cost of using the appliance @ max time
         let upperBound = ((freeValue! / itemValue) * 60) * 60
-        print("Upperbound: \(upperBound)")
+        print("Upper bound: \(upperBound)")
         
-        if upperBound != 0.0 { // if upper bound is 0 then its not possible to use the appliance
+        if upperBound != 0.0 {
             selectedUpperBound = upperBound // set upperbound
-            
-            // do we even need this!? if the upper bound is possible we shouldnt need to reference anything else
-            let newValue = (freeValue)! - itemValue // newValue = free - item
-            print("Active: \(freeValue ?? 0.0) - \(itemValue) = \(newValue)")
-        
-            if newValue >= 0 && newValue <= 100 {
                 if let selectedItems = collectionView.indexPathsForSelectedItems {
                     if selectedItems.contains(indexPath) {
                         collectionView.deselectItem(at: indexPath, animated: true)
@@ -37,15 +31,9 @@ extension DashboardViewController: UICollectionViewDelegate {
                     }
                 }
                 return true
-            } else {
-                let alert = UIAlertController(title: "Error", message: "Insert error here of x amount: ", preferredStyle: UIAlertControllerStyle.alert) // Use of this appliance will exceed your power collected for today.
-                alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                
-                return false
-            }
             
         } else {
+            // Not possible to use appliance, not enough energy left even for minimal use.
             let alert = UIAlertController(title: "Error", message: "Insert error here of x amount: ", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
@@ -85,7 +73,7 @@ extension DashboardViewController: UICollectionViewDelegate {
         
     }
     
-    func itemAddition() {
+    func addAppliance() {
         guard let indexPath = ShareData.sharedInstance.selectedIndex else { return }
         guard let duration = ShareData.sharedInstance.duration else { return }
         
@@ -94,17 +82,15 @@ extension DashboardViewController: UICollectionViewDelegate {
         let hour = Double(comp.hour!)
         let minute = Double(comp.minute!) / 60
         
-        let time = hour + minute
+        let hoursSpent = hour + minute
         
-        print("Time: \(duration).... \(indexPath).... \(time)") // time is 3
+        //let energyValue = activeApplianceList.filter { $0.name == "Free" }.first
         
-        let energyValue = activeApplianceList.filter { $0.name == "Free" }.first
+        let itemValue = applianceList[indexPath.row].energy * hoursSpent // 25 * 3 = 75
         
-        let itemValue = applianceList[indexPath.row].energy * time // 25 * 3 = 75
-        
-        let newValue = (energyValue?.energyUsage)! - itemValue
-        print("Active: \((energyValue?.energyUsage)!) - \(itemValue) = \(newValue)")
-        if newValue >= 0 && newValue <= 100 {
+        //let newValue = (energyValue?.energyUsage)! - itemValue
+        //print("Active: \((energyValue?.energyUsage)!) - \(itemValue) = \(newValue)")
+        //if newValue >= 0 && newValue <= 100 {
             activeApplianceList.insert(applianceList[indexPath.row], at: 0)
             activeApplianceList[0].energyUsage = itemValue // set the item being selected's value by watt * time
             activeApplianceList[activeApplianceList.endIndex - 1].energyUsage -= itemValue // subtract new amount from the free space
@@ -115,11 +101,11 @@ extension DashboardViewController: UICollectionViewDelegate {
             let newEnergyValue = activeApplianceList.map( { $0.energyUsage })
             updateGraph(activeAppliances: newEnergyValue)
             
-        } else {
+        //} else {
             // Invalid.
-            print("Unable to satisfy constraints")
+        //    print("Unable to satisfy constraints")
             
-        }
+       //}
         
     }
     
