@@ -133,7 +133,21 @@ class DashboardViewController: UIViewController, CLLocationManagerDelegate {
     // MARK: - Graph
     
     func updateGraph(activeAppliances: Array<Double>) {
+        
         let dataEntries = [BarChartDataEntry(x: 0.0, yValues: activeAppliances)]
+        print("updateGraph dataEntries: \(dataEntries)")
+        var index = 0
+        var labels = [String]()
+        for e in activeAppliances {
+            print("active appliance: \(e)")
+           // labels.append(index)
+            index = index + 1
+        }
+        
+        var dataEntries2 = [BarChartDataEntry]()
+        for e in activeAppliances {
+            dataEntries2.append(BarChartDataEntry(x: 0.0, y:e))
+        }
         
         let barChartDataSet = BarChartDataSet(values: dataEntries, label: "")
         
@@ -145,7 +159,10 @@ class DashboardViewController: UIViewController, CLLocationManagerDelegate {
         
         let barChartData = BarChartData(dataSet: barChartDataSet)
         barChartData.setValueFont(UIFont.systemFont(ofSize: 12.0))
+        
         barChart.data = barChartData
+        
+        
         
     }
     

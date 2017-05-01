@@ -10,7 +10,6 @@ import UIKit
 import Charts
 
 extension DashboardViewController: ChartViewDelegate {
-    
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         print("Chart Selected: \(highlight.stackIndex)")
         

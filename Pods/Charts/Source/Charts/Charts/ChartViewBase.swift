@@ -565,6 +565,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
             else
             {
                 // notify the listener
+                print("Calling chartValueSElected now with h\(h)")
                 delegate!.chartValueSelected?(self, entry: entry!, highlight: h!)
             }
         }
